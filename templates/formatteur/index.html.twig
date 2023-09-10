@@ -1,0 +1,51 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Formatteur index{% endblock %}
+
+{% block body %}
+<div style="position:relative;width:100%;">
+        <div style="position:absolute;right:0;width:50%; margin-right : 300px">
+            <a style="width:100%;" href="{{ path('app_stat') }} " class="btn btn-info" >Observe Statistic</a>
+        </div>
+    </div>
+    <h1> List des Formateur</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdFormatteur</th>
+                <th>Name</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Specialite</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for formatteur in formatteurs %}
+            <tr>
+                
+                <td>{{ formatteur.id }}</td>
+                <td>{{ formatteur.name }}</td>
+                <td>{{ formatteur.prenom }}</td>
+                <td>{{ formatteur.email }}</td>
+                <td>{{ formatteur.specialite }}</td>
+                
+                <td>
+                    <a href="{{ path('app_formatteur_show', {'id': formatteur.id}) }}" class="btn btn-success" >show</a>
+                    <a href="{{ path('app_formatteur_edit', {'id': formatteur.id}) }}" class="btn btn-secondary">edit</a>
+                    <a href="{{ path('app_formatteur_delete', {'id': formatteur.id}) }}" class="btn btn-danger">Delete</a>
+                    <a href="{{ path('mailing', {'id': formatteur.id}) }}" class="btn btn-warning">Send Confirmation</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_formatteur_new') }}" class="btn btn-dark"><i class="bi bi-plus"></i>Create new</a>
+{% endblock %}

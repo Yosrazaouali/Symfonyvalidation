@@ -1,0 +1,50 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Formation index{% endblock %}
+
+{% block body %}
+    <h1>Formation index</h1>
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center">
+    <a href="{{ path('app_trieascc') }}" class="bi bi-arrow-up" >Sort (Date) ASC</a>
+    <a href="{{ path('app_triedescc') }}" class="bi bi-arrow-down" >Sort (Date) DESC</a>
+    <a href="{{ path('app_generate_pdf') }}" class="btn btn-warning" style="margin : 20px;"><i class="bi bi-download" style="margin-right : 20px;"></i>Download PDF</a>
+
+    
+
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdFor</th>
+                {# <th>idFormateur</th> #}
+                <th>Date Formation</th>
+                <th>Nom Formation</th>
+                <th>Numbre des candidat Max</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for formation in formations %}
+            <tr>
+                <td>{{ formation.id }}</td>
+                {# <td>{{ formation.idFormateur }}</td> #}
+                <td>{{ formation.dateFor ? formation.dateFor|date('Y-m-d') : '' }}</td>
+                <td>{{ formation.nomFor }}</td>
+                <td>{{ formation.numbrMaxPer }}</td>
+                <td>
+                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}" class="btn btn-success">Show</a>
+                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-secondary">Edit</a>
+                    <a href="{{ path('app_formation_delete', {'id': formation.id}) }}" class="btn btn-danger">Delete</a> 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_formation_new') }}"><i class="bi bi-plus"></i>Create new</a>
+{% endblock %}
